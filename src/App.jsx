@@ -4,7 +4,7 @@ import Applayout from './layouts/Applayout.jsx';
 import Landingpage from './pages/Landingpage.jsx';
 import Onboarding from './pages/Onboarding.jsx';
 import Joblisting from './pages/job-listing.jsx';
-import MyJobsApplications from './pages/My-jobs.jsx';
+import MyJobsApplications from './pages/my-jobs.jsx';
 import Postjob from './pages/Post-job.jsx';
 import Savedjob from './pages/Saved-job.jsx';
 import Job from './pages/Job.jsx';
