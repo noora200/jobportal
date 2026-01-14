@@ -115,29 +115,43 @@ const VideoCall = ({ onEndCall, callerName, calleeName, callData }) => {
           height: '70vh',
           position: 'relative'
         }}>
+          {/* Dedicated container for ZegoCloud - must remain empty for React */}
           <div 
             ref={videoRef}
             style={{ 
               width: '100%', 
               height: '100%', 
-              backgroundColor: '#334155',
+            }}
+          />
+
+          {/* Overlay for status messages - managed by React */}
+          {(callStatus === 'connecting' || callStatus === 'error') && (
+            <div style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%', 
+              height: '100%', 
+              backgroundColor: '#1e293b',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#94a3b8'
+              color: '#94a3b8',
+              zIndex: 10
             }}>
-            {callStatus === 'connecting' && (
-              <div style={{ textAlign: 'center' }}>
-                <p>Setting up video call...</p>
-              </div>
-            )}
-            {callStatus === 'error' && (
-              <div style={{ textAlign: 'center' }}>
-                <p>Failed to connect to video call</p>
-                <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Please check your configuration</p>
-              </div>
-            )}
-          </div>
+              {callStatus === 'connecting' && (
+                <div style={{ textAlign: 'center' }}>
+                  <p>Setting up video call...</p>
+                </div>
+              )}
+              {callStatus === 'error' && (
+                <div style={{ textAlign: 'center' }}>
+                  <p>Failed to connect to video call</p>
+                  <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Please check your configuration</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Call controls */}

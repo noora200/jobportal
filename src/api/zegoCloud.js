@@ -4,7 +4,7 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 const initVideoCall = async (roomId, userId, userName, containerElement) => {
   try {
     // Get your App ID and App Sign from ZegoCloud Console
-    const appID = import.meta.env.VITE_ZEGOCLOUD_APP_ID; // Add this to your .env file
+    const appID = Number(import.meta.env.VITE_ZEGOCLOUD_APP_ID); // Add this to your .env file
     const serverSecret = import.meta.env.VITE_ZEGOCLOUD_SERVER_SECRET; // Add this to your .env file
 
     if (!appID || !serverSecret) {
@@ -21,6 +21,10 @@ const initVideoCall = async (roomId, userId, userName, containerElement) => {
 
     // Create instance
     const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+    if (!zp) {
+      throw new Error('Failed to create ZegoUIKitPrebuilt instance');
+    }
 
     // Join room with config for interview
     zp.joinRoom({
