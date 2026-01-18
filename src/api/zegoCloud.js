@@ -45,6 +45,14 @@ const initVideoCall = async (roomId, userId, userName, containerElement) => {
       layout: {
         mode: ZegoUIKitPrebuilt.VideoRound, // Round video layout
       },
+      videoResolutionList: [
+        ZegoUIKitPrebuilt.resolution_720_1280, // Set higher resolution
+      ],
+      videoQuality: ZegoUIKitPrebuilt.Speech_Quality, // Optimize for better video quality
+      audioOutputDeviceID: null,
+      audioInputDeviceID: null,
+      videoInputDeviceID: null,
+      mirrorLocalVideo: false, // Don't mirror local video
       onLeaveRoom: () => {
         console.log('User left the interview room');
         // Handle post-call actions here
