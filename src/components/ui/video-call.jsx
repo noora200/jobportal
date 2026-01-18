@@ -41,7 +41,11 @@ const VideoCall = ({ onEndCall, callerName, calleeName, callData }) => {
     // Cleanup on unmount
     return () => {
       if (zegoInstanceRef.current) {
-        zegoInstanceRef.current.destroy();
+        try {
+          zegoInstanceRef.current.destroy();
+        } catch (error) {
+          console.error('Error destroying ZegoCloud instance:', error);
+        }
       }
     };
   }, [callData]);
@@ -51,7 +55,11 @@ const VideoCall = ({ onEndCall, callerName, calleeName, callData }) => {
     
     // Destroy ZegoCloud instance
     if (zegoInstanceRef.current) {
-      zegoInstanceRef.current.destroy();
+      try {
+        zegoInstanceRef.current.destroy();
+      } catch (error) {
+        console.error('Error destroying ZegoCloud instance:', error);
+      }
     }
     
     // Prepare data for the ended page

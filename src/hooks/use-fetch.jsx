@@ -17,7 +17,7 @@ const useFetch = (cb,options ={}) => {
                 template: "supabase",
             });
 
-            const response = await cb(supabaseAccessToken,options, ...args);
+            const response = await cb(supabaseAccessToken, ...args);
             setData(response);
             setError(null);
         } catch (error) {

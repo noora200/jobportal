@@ -56,7 +56,7 @@ const Header = () => {
                   </Link>
                   <Link to="/Myjobs" style={{ marginRight: '16px', textDecoration: 'none' }}>
                     <Button style={{backgroundColor: '#0066cc', color: 'white', borderRadius: '50px', padding: '10px 20px', display: 'flex', alignItems: 'center', border: 'none'}}>
-                      <Users size={24} style={{color: '#ffffff', marginRight: '8px'}}/> Manage Jobs & Candidates
+                      <Users size={24} style={{color: '#ffffff', marginRight: '8px'}}/> View Candidates
                     </Button>
                   </Link>
                 </>

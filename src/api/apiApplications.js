@@ -90,15 +90,60 @@ export async function getApplicationsForRecruiterJobs(token, options) {
   }
   
   // Then get applications for those jobs
-  const { data, error } = await supabase
+  const { data: applications, error } = await supabase
     .from('applications')
-    .select(`
-      applications.*, 
-      job:jobs(title, company:companies(name)), 
-      candidate:user_details(first_name, last_name, email)
-    `)
+    .select('*')
     .in('job_id', jobIds.map(job => job.id))
-    .order('applications.created_at', { ascending: false });
+    .order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error("Error fetching Applications for recruiter jobs:", error);
+    return null;
+  }
+  
+  // Get unique candidate IDs to fetch details
+  const uniqueCandidateIds = [...new Set(applications.map(app => app.candidate_id))];
+  
+  // Fetch candidate details
+  const { data: candidates, error: candidatesError } = await supabase
+    .from('user_details')
+    .select('id, first_name, last_name, email')
+    .in('id', uniqueCandidateIds);
+  
+  if (candidatesError) {
+    console.error("Error fetching candidate details:", candidatesError);
+    return applications; // Return applications without candidate details
+  }
+  
+  // Map candidate details to applications
+  const applicationsWithCandidates = applications.map(app => {
+    const candidate = candidates.find(c => c.id === app.candidate_id);
+    return {
+      ...app,
+      candidate
+    };
+  });
+  
+  // Get job details for each application
+  const applicationsWithJobs = [];
+  for (const app of applicationsWithCandidates) {
+    const { data: job, error: jobError } = await supabase
+      .from('jobs')
+      .select('title, company:companies(name)')
+      .eq('id', app.job_id)
+      .single();
+      
+    if (!jobError) {
+      applicationsWithJobs.push({
+        ...app,
+        job
+      });
+    } else {
+      applicationsWithJobs.push(app); // Push without job details if error
+    }
+  }
+  
+  const data = applicationsWithJobs;
 
   console.log('Applications for recruiter jobs query result:', { data, error });
   

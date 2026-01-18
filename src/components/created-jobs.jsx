@@ -21,7 +21,7 @@ const CreatedJobs = () => {
       console.log('CreatedJobs - user not loaded or no user id');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user?.id]);
 
   if (!user || !isLoaded) {
     return <div>Loading...</div>;

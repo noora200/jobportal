@@ -9,7 +9,7 @@ import Postjob from './pages/post-job.jsx';
 import Savedjob from './pages/saved-job.jsx';
 import Job from './pages/job.jsx';
 import Internhip from './pages/internhip.jsx';
-import CreatedJobs from './components/created-jobs.jsx';
+import EmployerCandidates from './components/employer-candidates.jsx';
 import ApplicationConfirmation from './pages/application-confirmation.jsx';
 import JobDetails from './pages/job-details.jsx';
 import VideoCallRoom from './pages/video-call-room.jsx';
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/Myjobs",
-        element: <ProtectedRoute> <CreatedJobs/></ProtectedRoute>
+        element: <ProtectedRoute> <EmployerCandidates/></ProtectedRoute>
       },
       {
         path: "/Postjob",

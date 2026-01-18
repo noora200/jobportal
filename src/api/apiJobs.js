@@ -190,6 +190,7 @@ export async function addNewJob(token,_, jobData) {
 
 // get my created jobs
 export async function getMyJobs(token, { recruiter_id }) {
+  console.log('getMyJobs called with recruiter_id:', recruiter_id);
   const supabase = await supabaseClient(token);
 
   const { data, error } = await supabase
@@ -197,6 +198,8 @@ export async function getMyJobs(token, { recruiter_id }) {
     .select("*, company: companies(name,logo_url)")
     .eq("recruiter_id", recruiter_id);
 
+  console.log('getMyJobs query result:', { data, error });
+  
   if (error) {
     console.error("Error fetching Jobs:", error);
     return null;
